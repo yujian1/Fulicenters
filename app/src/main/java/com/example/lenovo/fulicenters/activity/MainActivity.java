@@ -4,18 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.utils.L;
 
 public class MainActivity extends AppCompatActivity {
-    //private  final long sleeptime=2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        L.i("MainActivity onCreate");
     }
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
 
-    }*/
 }
