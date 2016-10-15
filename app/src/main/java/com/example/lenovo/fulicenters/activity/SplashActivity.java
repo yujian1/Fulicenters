@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.utils.MFGT;
 
 public class SplashActivity extends AppCompatActivity {
     private final long sleepTime = 2000;
@@ -30,9 +31,11 @@ public class SplashActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    //Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    //startActivity(intent);
+                    //finish();
+                    MFGT.gotoMainActivity(SplashActivity.this);
+                    MFGT.finish(SplashActivity.this);
                 }
             }
         }).start();
