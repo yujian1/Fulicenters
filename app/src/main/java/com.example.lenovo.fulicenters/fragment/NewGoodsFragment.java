@@ -16,6 +16,8 @@ import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.activity.MainActivity;
 import com.example.lenovo.fulicenters.adapter.GoodsAdapter;
 import com.example.lenovo.fulicenters.bean.NewGoodsBean;
+import com.example.lenovo.fulicenters.net.NetDao;
+import com.example.lenovo.fulicenters.net.OkHttpUtils;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class NewGoodsFragment extends Fragment {
      MainActivity mContext;
     GoodsAdapter mAdapter;
     ArrayList<NewGoodsBean> mList;
+    int pageId=1;
 
     @Nullable
     @Override
@@ -51,6 +54,17 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initData() {
+        NetDao.downloadNewGoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+            @Override
+            public void onSuccess(NewGoodsBean[] result) {
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
 
     }
 
