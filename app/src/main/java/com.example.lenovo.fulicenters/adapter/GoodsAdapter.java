@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.activity.MainActivity;
 import com.example.lenovo.fulicenters.bean.NewGoodsBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +30,7 @@ public class GoodsAdapter extends Adapter {
     Context mContext;
 
 
-    public GoodsAdapter(List<NewGoodsBean> list, Context context) {
+    public GoodsAdapter(MainActivity list, ArrayList<NewGoodsBean> context) {
         mList = list;
         mContext = context;
     }
