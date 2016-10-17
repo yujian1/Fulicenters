@@ -28,9 +28,9 @@
                 android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:button="@null"
-                android:onClick="onnewgoods"
                 style="@style/menu_item_style"
                 android:checked="true"
+                android:onClick="onClick"
                 />
 
             <RadioButton
@@ -44,7 +44,6 @@
                 android:text="精选"
                 android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
-                android:onClick="onboutique"
                 style="@style/menu_item_style"
                 android:button="@null"
                 android:checked="false"
@@ -61,7 +60,6 @@
                 style="@style/menu_item_style"
                 android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
-                android:onClick="oncategory"
                 android:button="@null"
                 android:checked="false"/>
 
@@ -76,19 +74,17 @@
                     android:button="@null"
                     android:checked="false"/>
                 <TextView
-                    android:background="@drawable/cart_hint"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="1300"
-                    android:visibility="gone"
-                    android:textSize="12dp"/>
-
-
+                    android:id="@+id/tvCart"
+                    android:layout_alignRight="@id/layout_cart"
+                    android:layout_marginRight="20dp"
+                    android:background="#ed0707"
+                    android:layout_width="15dp"
+                    android:layout_height="10dp"
+                    android:text="130"
+                    android:textColor="#f9f4f3f3"
+                    android:textSize="8dp"/>
                 </RelativeLayout>
             <RadioButton
-                android:onClick="onPersonal"
                 android:id="@+id/personal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
