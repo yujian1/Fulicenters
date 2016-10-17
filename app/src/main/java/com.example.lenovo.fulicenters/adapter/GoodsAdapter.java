@@ -68,7 +68,6 @@ public class GoodsAdapter extends Adapter {
         }
         return I.TYPE_FOOTER;
     }
-
     static class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView mIvGoodsThumb;
