@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
-import com.example.lenovo.fulicenters.activity.MainActivity;
 import com.example.lenovo.fulicenters.bean.NewGoodsBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
 
@@ -30,8 +29,10 @@ public class GoodsAdapter extends Adapter {
     Context mContext;
 
 
-    public GoodsAdapter(MainActivity list, ArrayList<NewGoodsBean> context) {
-        mList = list;
+
+    public GoodsAdapter(Context context,List<NewGoodsBean> list) {
+        mList = new ArrayList<>();
+        mList.addAll(list);
         mContext = context;
     }
 
@@ -70,8 +71,17 @@ public class GoodsAdapter extends Adapter {
         if (position == getItemCount() - 1) {
             return I.TYPE_FOOTER;
         }
-        return I.TYPE_FOOTER;
+        return I.TYPE_ITEM;
     }
+
+    public void initData(ArrayList<NewGoodsBean> list) {
+        if (mList!=null){
+            mList.clear();
+        }
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
     static class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView mIvGoodsThumb;
