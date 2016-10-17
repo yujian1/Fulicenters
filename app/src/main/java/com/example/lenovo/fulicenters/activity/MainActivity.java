@@ -14,29 +14,69 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.newGoods)
-    RadioButton newGoods;
-    @BindView(R.id.boutique)
-    RadioButton boutique;
-    @BindView(R.id.category)
-    RadioButton category;
-    @BindView(R.id.layout_cart)
-    RadioButton layoutCart;
-    @BindView(R.id.tvCart)
-    TextView tvCart;
-    @BindView(R.id.personal)
-    RadioButton personal;
-    
 
+    @BindView(R.id.layout_new_good)
+    RadioButton mlayoutNewGood;
+    @BindView(R.id.layout_boutique)
+    RadioButton mlayoutBoutique;
+    @BindView(R.id.layout_category)
+    RadioButton mlayoutCategory;
+    @BindView(R.id.layout_cart)
+    RadioButton mlayoutCart;
+    @BindView(R.id.tvCartHint)
+    TextView mtvCartHint;
+    @BindView(R.id.layout_personal_center)
+    RadioButton mlayoutPersonalCenter;
+    int index;
+    RadioButton[] rbs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         L.i("MainActivity onCreate");
+        initView();
     }
 
+    private void initView() {
+        rbs = new RadioButton[5];
+        rbs[0] = mlayoutNewGood;
+        rbs[1] = mlayoutBoutique;
+        rbs[2] = mlayoutCategory;
+        rbs[3] = mlayoutCart;
+        rbs[4] = mlayoutPersonalCenter;
 
-    public void onClick(View view) {
+    }
+
+    public void onCheckedChange(View v) {
+        switch (v.getId()) {
+            case R.id.layout_new_good:
+                index = 0;
+                break;
+            case R.id.layout_boutique:
+                index = 1;
+                break;
+            case R.id.layout_category:
+                index = 2;
+                break;
+            case R.id.layout_cart:
+                index = 3;
+                break;
+            case R.id.layout_personal_center:
+                index = 4;
+                break;
+        }
+        setRadioButtonStatus();
+    }
+
+    private void setRadioButtonStatus() {
+        for (int i = 0; i < rbs.length; i++) {
+            if (i == index) {
+                rbs[i].setChecked(true);
+
+            } else {
+                rbs[i].setChecked(false);
+            }
+        }
     }
 }
