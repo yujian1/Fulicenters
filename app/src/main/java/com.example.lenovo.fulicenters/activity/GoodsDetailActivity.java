@@ -59,7 +59,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
     private void inintView() {
     }
     private void initDeta() {
-        NetDao.downloadGoodsDetail(mContext, goodsId, (OkHttpUtils.OnCompleteListener<GoodsDetailsBean[]>) new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
+        NetDao.downloadGoodsDetail(mContext, goodsId, (OkHttpUtils.OnCompleteListener<GoodsDetailsBean>) new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
                 L.i("details="+result);
