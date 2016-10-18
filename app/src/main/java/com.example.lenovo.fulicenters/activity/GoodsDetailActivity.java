@@ -2,6 +2,7 @@ package com.example.lenovo.fulicenters.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,16 +10,19 @@ import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.bean.AlbumsBean;
 import com.example.lenovo.fulicenters.bean.GoodsDetailsBean;
 import com.example.lenovo.fulicenters.net.NetDao;
 import com.example.lenovo.fulicenters.net.OkHttpUtils;
 import com.example.lenovo.fulicenters.utils.CommonUtils;
 import com.example.lenovo.fulicenters.utils.L;
+import com.example.lenovo.fulicenters.utils.MFGT;
 import com.example.lenovo.fulicenters.view.FlowIndicator;
 import com.example.lenovo.fulicenters.view.SlideAutoLoopView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GoodsDetailActivity extends AppCompatActivity {
 
@@ -41,31 +45,35 @@ public class GoodsDetailActivity extends AppCompatActivity {
     int goodsId;
 
     GoodsDetailActivity mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
-        getIntent().putExtra(I.GoodsDetails.KEY_GOODS_ID,0);
-        if (goodsId==0){
+        goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
+        L.d("details", "goodsid=" + goodsId);
+        if (goodsId == 0) {
             finish();
         }
-        mContext=this;
-        inintView();
-        initDeta();
+        mContext = this;
+        initView();
+        initData();
         setListener();
     }
 
-    private void inintView() {
+    private void setListener() {
+
     }
-    private void initDeta() {
-        NetDao.downloadGoodsDetail(mContext, goodsId, (OkHttpUtils.OnCompleteListener<GoodsDetailsBean>) new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
+
+    private void initData() {
+        NetDao.downloadGoodsDetail(mContext, goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
-                L.i("details="+result);
-                if (result!=null){
+                L.i("details=" + result);
+                if (result != null) {
                     showGoodDetails(result);
-                }else {
+                } else {
                     finish();
                 }
             }
@@ -73,10 +81,12 @@ public class GoodsDetailActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 finish();
-                L.d("details,error="+error);
+                L.d("details,error=" + error);
                 CommonUtils.showShortToast(error);
+
             }
         });
+
     }
 
     private void showGoodDetails(GoodsDetailsBean details) {
@@ -84,12 +94,41 @@ public class GoodsDetailActivity extends AppCompatActivity {
         mTvGoodName.setText(details.getGoodsName());
         mTvGoodPriceCurrent.setText(details.getCurrencyPrice());
         mTvGoodPriceShop.setText(details.getShopPrice());
-
+        mSalv.startPlayLoop(mIndicator, getAlbumImgUrl(details), getAbumImgCount(details));
+        mWvGoodBrief.loadDataWithBaseURL(null, details.getGoodsBrief(), I.TEXT_HTML, I.UTF_8, null);
 
     }
 
+    private int getAbumImgCount(GoodsDetailsBean details) {
+        if (details.getProperties()!=null && details.getProperties().length>0) {
+           return details.getProperties()[0].getAlbums().length;
+        }
+        return 0;
+    }
 
-    private void setListener() {
-        return;
+    private String[] getAlbumImgUrl(GoodsDetailsBean details) {
+        String[] urls = new String[]{};
+        if (details.getPromotePrice()!=null&&details.getProperties().length>0) {
+            AlbumsBean[] albums = details.getProperties()[0].getAlbums();
+            urls = new String[albums.length];
+            for (int i = 0; i < albums.length; i++) {
+                urls[i] = albums[i].getImgUrl();
+            }
+        }
+        return urls;
+    }
+
+    private void initView() {
+
+    }
+
+    @OnClick(R.id.backClickArea)
+    public void onBackClick() {
+        MFGT.finish(this);
+    }
+
+    public void back(View v) {
+        MFGT.finish(this);
+
     }
 }
