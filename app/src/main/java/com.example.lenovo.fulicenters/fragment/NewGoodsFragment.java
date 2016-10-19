@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by lenovo on 2016/10/17.
  */
-public class NewGoodsFragment extends Fragment {
+public class NewGoodsFragment extends BaseFragment {
     @BindView(R.id.tvrefresh)
     TextView mtvrefresh;
     @BindView(R.id.rv)
@@ -50,14 +50,15 @@ public class NewGoodsFragment extends Fragment {
         mContext= (MainActivity) getContext();
         mList=new ArrayList<>();
         mAdapter=new GoodsAdapter(mContext,mList);
-        initView();
-        initData();
-        setListener();
+        super. onCreateView(inflater,container,savedInstanceState);
+
+
         return layout;
 
     }
+    @Override
 
-    private void setListener() {
+    protected void setListener() {
         setpullupListener();
         setPulldownListener();
     }
@@ -135,13 +136,15 @@ public class NewGoodsFragment extends Fragment {
             }
         });
     }
+    @Override
 
-    private void initData() {
+    protected void initData() {
         downloadNewGoods(I.ACTION_DOWNLOAD);
 
     }
+    @Override
 
-    private void initView() {
+    protected void initView() {
         msrl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),

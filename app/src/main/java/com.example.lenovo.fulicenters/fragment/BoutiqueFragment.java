@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by lenovo on 2016/10/19.
  */
 
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends BaseFragment {
     @BindView(R.id.tvrefresh)
     TextView mtvrefresh;
     @BindView(R.id.rv)
@@ -52,13 +52,11 @@ public class BoutiqueFragment extends Fragment {
         mContext= (MainActivity) getContext();
         mList= new ArrayList<>();
         mAdapter =new BoutiqueAdapter(mList,mContext);
-        initView();
-        initData();
-        setListener();
+       super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
-
-    private void setListener() {
+    @Override
+   protected   void setListener() {
         setPullDownListener();
     }
 
@@ -73,7 +71,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected  void initData() {
         downloadBoutipue();
 
     }
@@ -103,7 +102,8 @@ public class BoutiqueFragment extends Fragment {
 
     }
 
-    private void initView() {
+    @Override
+    protected  void initView() {
         msrl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
