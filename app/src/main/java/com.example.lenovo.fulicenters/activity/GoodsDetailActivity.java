@@ -69,6 +69,8 @@ public class GoodsDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
                 L.i("details=" + result);
+                L.e("ssssssssssssssss catId");
+
                 if (result != null) {
                     showGoodDetails(result);
                 } else {

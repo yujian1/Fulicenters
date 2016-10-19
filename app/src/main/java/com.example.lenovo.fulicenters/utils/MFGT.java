@@ -6,8 +6,11 @@ import android.content.Intent;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.activity.BoutiqueChildActivity;
 import com.example.lenovo.fulicenters.activity.GoodsDetailActivity;
 import com.example.lenovo.fulicenters.activity.MainActivity;
+import com.example.lenovo.fulicenters.bean.BoutiqueBean;
+
 public class MFGT {
     public static void finish(Activity activity){
         activity.finish();
@@ -31,5 +34,11 @@ public class MFGT {
         context.startActivity(intent);
         ( (Activity) context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 
+    }
+    public static void gotoBoutiqueChildActivity(Context context, BoutiqueBean bean) {
+        Intent intent = new Intent();
+        intent.setClass(context, BoutiqueChildActivity.class);
+        intent.putExtra(I.Boutique.CAT_ID, bean);
+        startActivity(context,intent);
     }
 }

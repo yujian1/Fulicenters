@@ -11,7 +11,6 @@ import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.fragment.BoutiqueFragment;
 import com.example.lenovo.fulicenters.fragment.NewGoodsFragment;
 import com.example.lenovo.fulicenters.utils.L;
-import com.example.lenovo.fulicenters.utils.MFGT;
 
 
 import butterknife.BindView;
@@ -133,6 +132,7 @@ public class MainActivity extends BaseActivity  {
         }
     }
     public  void onBackPressed(){
+
         finish();
     }
 

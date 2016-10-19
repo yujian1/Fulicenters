@@ -13,12 +13,14 @@ import android.widget.TextView;
 import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.bean.BoutiqueBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
+import com.example.lenovo.fulicenters.utils.MFGT;
 
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by lenovo on 2016/10/19.
@@ -49,6 +51,7 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> 
             holder.mtvBoutiqueTitle.setText(boutiqueBean.getTitle());
             holder.mtvBoutiqueName.setText(boutiqueBean.getName());
             holder.mtvBoutiqueDescription.setText(boutiqueBean.getDescription());
+            holder.mlayoutBoutiqueItem.setTag(boutiqueBean);
     }
 
     @Override
@@ -83,6 +86,12 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> 
          BoutqueViewHolder(View view) {
              super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick (R.id.layout_boutique_item)
+        public void onBoutiqueClick(){
+           BoutiqueBean bean= (BoutiqueBean) mlayoutBoutiqueItem.getTag();
+            MFGT.gotoBoutiqueChildActivity(mCoutext,bean);
+
         }
     }
 }
