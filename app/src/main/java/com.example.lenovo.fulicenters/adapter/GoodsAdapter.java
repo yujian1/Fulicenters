@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
-import com.example.lenovo.fulicenters.activity.GoodsDetailActivity;
 import com.example.lenovo.fulicenters.bean.NewGoodsBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
 import com.example.lenovo.fulicenters.utils.MFGT;
+import com.example.lenovo.fulicenters.view.FooterViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,13 +136,5 @@ public class GoodsAdapter extends Adapter {
 
     }
 
-    static class FooterViewHolder extends ViewHolder{
-        @BindView(R.id.tvFooter)
-        TextView mTvFooter;
 
-        FooterViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 }
