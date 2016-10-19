@@ -1,17 +1,18 @@
 package com.example.lenovo.fulicenters.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.fragment.NewGoodsFragment;
 import com.example.lenovo.fulicenters.utils.L;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity {
 
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     RadioButton mlayoutPersonalCenter;
     int index;
     RadioButton[] rbs;
+    Fragment[]mFragments;
+    NewGoodsFragment mNewGoodsFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,19 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         L.i("MainActivity onCreate");
         initView();
+        initFragment();
     }
+
+    private void initFragment() {
+        mFragments=new Fragment[5];
+        mNewGoodsFragment=new NewGoodsFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_container,mNewGoodsFragment)
+                .show(mNewGoodsFragment)
+                .commit();
+    }
+
 
     private void initView() {
         rbs = new RadioButton[5];
