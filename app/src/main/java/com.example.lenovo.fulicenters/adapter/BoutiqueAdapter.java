@@ -15,7 +15,9 @@ import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.activity.MainActivity;
 import com.example.lenovo.fulicenters.bean.BoutiqueBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
+import com.example.lenovo.fulicenters.utils.L;
 import com.example.lenovo.fulicenters.view.FooterViewHolder;
+
 
 import java.util.ArrayList;
 
@@ -32,16 +34,11 @@ public class BoutiqueAdapter extends Adapter {
 
     boolean isMore;
 
-    public BoutiqueAdapter(MainActivity list, Context Coutext) {
-        mCoutext=Coutext;
+    public BoutiqueAdapter (ArrayList<BoutiqueBean> list, Context context) {
+        mCoutext=context;
         mList=new ArrayList<>();
         mList.addAll(list);
     }
-
-    public BoutiqueAdapter(MainActivity mContext, ArrayList<BoutiqueBean> mList) {
-
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
@@ -102,9 +99,9 @@ public class BoutiqueAdapter extends Adapter {
     public void initData(ArrayList<BoutiqueBean> list) {
         if (mList!=null){
             mList.clear();
-
         }
         mList.addAll(list);
+
         notifyDataSetChanged();
     }
 

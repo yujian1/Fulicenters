@@ -43,14 +43,15 @@ public class BoutiqueFragment extends Fragment {
     LayoutManager llm;
     MainActivity mContext;
     BoutiqueAdapter mAdapter;
-   ArrayList<BoutiqueBean> mList;
+    ArrayList<BoutiqueBean> mList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
-        mAdapter =new BoutiqueAdapter(mContext,mList);
+        mList= new ArrayList<>();
+        mAdapter =new BoutiqueAdapter(mList,mContext);
         initView();
         initData();
         return layout;
@@ -70,12 +71,12 @@ public class BoutiqueFragment extends Fragment {
                 L.e("result="+result);
                 if(result!=null && result.length>0){
                 ArrayList<BoutiqueBean> list= ConvertUtils.array2List(result);
+                    L.e(""+list.size());
                     if (action== I.ACTION_DOWNLOAD ||action==I.ACTION_PULL_DOWN){
                         mAdapter.initData(list);
                     }else {
                         mAdapter.addData(list);
                     }
-                    mAdapter.initData(list);
                     if (list.size()<I.PAGE_SIZE_DEFAULT){
                         mAdapter.setMore(false);
                     }
