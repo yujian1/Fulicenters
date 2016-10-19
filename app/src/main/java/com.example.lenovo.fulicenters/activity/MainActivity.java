@@ -3,7 +3,6 @@ package com.example.lenovo.fulicenters.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -12,11 +11,12 @@ import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.fragment.BoutiqueFragment;
 import com.example.lenovo.fulicenters.fragment.NewGoodsFragment;
 import com.example.lenovo.fulicenters.utils.L;
+import com.example.lenovo.fulicenters.utils.MFGT;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends BaseActivity  {
 
 
     @BindView(R.id.layout_new_good)
@@ -40,12 +40,10 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         L.i("MainActivity onCreate");
-        initView();
-        initFragment();
+        super.onCreate(savedInstanceState);
     }
 
     private void initFragment() {
@@ -65,13 +63,26 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-    private void initView() {
+    @Override
+    protected  void initView() {
         rbs = new RadioButton[5];
         rbs[0] = mlayoutNewGood;
         rbs[1] = mlayoutBoutique;
         rbs[2] = mlayoutCategory;
         rbs[3] = mlayoutCart;
         rbs[4] = mlayoutPersonalCenter;
+
+    }
+
+    @Override
+    protected void initData() {
+        initFragment();
+
+
+    }
+
+    @Override
+    protected void setListener() {
 
     }
 
@@ -121,6 +132,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-
+    public  void onBackPressed(){
+        finish();
+    }
 
 }
