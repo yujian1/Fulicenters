@@ -54,34 +54,40 @@ public class BoutiqueFragment extends Fragment {
         mAdapter =new BoutiqueAdapter(mList,mContext);
         initView();
         initData();
+        setListener();
         return layout;
     }
 
+    private void setListener() {
+        setPullDownListener();
+    }
+
+    private void setPullDownListener() {
+        msrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                msrl.setRefreshing(true);
+                mtvrefresh.setVisibility(View.VISIBLE);
+                downloadBoutipue();
+            }
+        });
+    }
+
     private void initData() {
-        downloadBoutipue(I.ACTION_DOWNLOAD);
+        downloadBoutipue();
 
     }
-    private void downloadBoutipue(final int action){
+    private void downloadBoutipue(){
         NetDao.downloadBoutique(mContext, new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
                 msrl.setRefreshing(false);
                 mtvrefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
                 L.e("result="+result);
                 if(result!=null && result.length>0){
                 ArrayList<BoutiqueBean> list= ConvertUtils.array2List(result);
-                    L.e(""+list.size());
-                    if (action== I.ACTION_DOWNLOAD ||action==I.ACTION_PULL_DOWN){
                         mAdapter.initData(list);
-                    }else {
-                        mAdapter.addData(list);
-                    }
-                    if (list.size()<I.PAGE_SIZE_DEFAULT){
-                        mAdapter.setMore(false);
-                    }
-                }else {
-                    mAdapter.setMore(false);
+
                 }
             }
 
@@ -89,7 +95,6 @@ public class BoutiqueFragment extends Fragment {
             public void onError(String error) {
                 msrl.setRefreshing(false);
                 mtvrefresh.setVisibility(View.GONE);
-                mAdapter.setMore(false);
                 CommonUtils.showShortToast(error);
                 L.e("error"+error);
 
