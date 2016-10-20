@@ -13,7 +13,6 @@
         android:layout_marginLeft="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/nopic"
-        android:background="#000f"
         android:layout_centerVertical="true"/>
     <TextView
         android:id="@+id/tv_group_name"
