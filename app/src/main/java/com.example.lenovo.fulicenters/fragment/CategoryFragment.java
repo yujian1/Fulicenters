@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+
 import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.activity.MainActivity;
 import com.example.lenovo.fulicenters.adapter.CategroyAdater;
@@ -23,59 +24,53 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by lenovo on 2016/10/20.
+ * Created by Angela on 2016/10/20.
  */
 
 public class CategoryFragment extends BaseFragment {
-
     @BindView(R.id.elv_category)
-    ExpandableListView melvCategory;
+    ExpandableListView mElvCategory;
+
     CategroyAdater mAdapter;
     MainActivity mContext;
     ArrayList<CategoryGroupBean> mGroupList;
     ArrayList<ArrayList<CategoryChildBean>> mChildList;
+
     int groupCount;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_category, container, false);
-
+        ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
         mGroupList=new ArrayList<>();
         mChildList=new ArrayList<>();
         mAdapter=new CategroyAdater(mContext,mGroupList,mChildList);
-        ButterKnife.bind(this, layout);
         super.onCreateView(inflater, container, savedInstanceState);
-
         return layout;
     }
 
-
     @Override
     protected void initView() {
-        melvCategory.setGroupIndicator(null);
-        melvCategory.setAdapter(mAdapter);
-
-
+        mElvCategory.setGroupIndicator(null);
+        mElvCategory.setAdapter(mAdapter);
     }
 
     @Override
     protected void initData() {
-     downloadGroup();
-
+        downloadGroup();
     }
 
     private void downloadGroup() {
-
         NetDao.downloadGroup(mContext, new OkHttpUtils.OnCompleteListener<CategoryGroupBean[]>() {
+
             @Override
             public void onSuccess(CategoryGroupBean[] result) {
-                L.e("downloadGroup"+result);
-
-                if (result!=null&& result.length>0){
+                L.d("downloadGroup,result="+result);
+                if (result!=null&&result.length>0){
                     ArrayList<CategoryGroupBean> groupList = ConvertUtils.array2List(result);
-                    L.e("groupList"+"  "+groupList.size());
+                    L.d("groupList="+groupList.size());
                     mGroupList.addAll(groupList);
                     for (int i=0;i<groupList.size();i++){
                         mChildList.add(new ArrayList<CategoryChildBean>());
@@ -84,25 +79,22 @@ public class CategoryFragment extends BaseFragment {
                     }
                 }
             }
-
             @Override
             public void onError(String error) {
-                L.e("error"+error);
-
+                L.d("error="+error);
             }
         });
     }
 
-    private void downloadChild(int id,final int index) {
+    private void downloadChild(int id, final int index) {
         NetDao.downloadchild(mContext, id, new OkHttpUtils.OnCompleteListener<CategoryChildBean[]>() {
             @Override
             public void onSuccess(CategoryChildBean[] result) {
-
                 groupCount++;
-                L.e("downloadGroup"+result);
-                if (result!=null&& result.length>0){
+                L.d("downloadChild,result="+result);
+                if (result!=null&&result.length>0){
                     ArrayList<CategoryChildBean> childList = ConvertUtils.array2List(result);
-                    L.e("groupList"+"  "+childList.size());
+                    L.d("childList="+childList.size());
                     mChildList.set(index,childList);
                 }
                 if (groupCount==mGroupList.size()){
@@ -112,7 +104,7 @@ public class CategoryFragment extends BaseFragment {
 
             @Override
             public void onError(String error) {
-
+                L.d("error="+error);
             }
         });
     }

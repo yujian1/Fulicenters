@@ -12,6 +12,7 @@ import com.example.lenovo.fulicenters.R;
 import com.example.lenovo.fulicenters.bean.CategoryChildBean;
 import com.example.lenovo.fulicenters.bean.CategoryGroupBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
+import com.example.lenovo.fulicenters.utils.MFGT;
 
 import java.util.ArrayList;
 
@@ -108,10 +109,16 @@ public class CategroyAdater extends BaseExpandableListAdapter{
             holder= (ChildViewHolder) view.getTag();
 
         }
-        CategoryChildBean child = getChild(groupProsition, childProsition);
+        final CategoryChildBean child = getChild(groupProsition, childProsition);
         if (child!=null){
             ImageLoader.downloadImg(mcontext,holder.mivCategroryChildThumb,child.getImageUrl());
             holder.mtvCategroyChildName.setText(child.getName());
+            holder.mlayoutCategoryChild.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MFGT.gotoCategoryChildActivity(mcontext,child.getId());
+                }
+            });
         }
         return view;
     }
@@ -157,6 +164,7 @@ public class CategroyAdater extends BaseExpandableListAdapter{
         RelativeLayout mlayoutCategoryChild;
 
         ChildViewHolder(View view) {
+
             ButterKnife.bind(this, view);
         }
     }

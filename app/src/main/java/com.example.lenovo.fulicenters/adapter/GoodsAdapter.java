@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.lenovo.fulicenters.I;
 import com.example.lenovo.fulicenters.R;
+import com.example.lenovo.fulicenters.bean.BoutiqueBean;
 import com.example.lenovo.fulicenters.bean.NewGoodsBean;
 import com.example.lenovo.fulicenters.utils.ImageLoader;
 import com.example.lenovo.fulicenters.utils.MFGT;
@@ -111,7 +112,9 @@ public class GoodsAdapter extends Adapter {
         notifyDataSetChanged();
     }
 
-     class GoodsViewHolder extends ViewHolder{
+
+
+    class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView mIvGoodsThumb;
         @BindView(R.id.tvGoodsName)
